@@ -3,6 +3,7 @@ using CAFE.DATA.Entity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CAFE.API.Controllers
@@ -23,6 +24,8 @@ namespace CAFE.API.Controllers
         [HttpGet("GetProductById/{id}")]
         public Product GetProductById(int id)
         {
+                   
+
             return _productRepository.GetProductById(id).Result;
         }
         [HttpGet("GetProductByCategoryId/{id}")]

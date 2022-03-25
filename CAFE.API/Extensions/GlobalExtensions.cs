@@ -29,6 +29,7 @@ namespace CAFE.API.Extensions
             }
             return clearText;
         }
+
         public static string Decrypt(this string cipherText)
         {
 

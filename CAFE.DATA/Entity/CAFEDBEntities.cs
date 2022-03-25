@@ -100,10 +100,7 @@ namespace CAFE.DATA.Entity
 
                 entity.Property(e => e.Propertyid).HasColumnName("PROPERTYID");
 
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Productproperties)
-                    .HasForeignKey(d => d.Productid)
-                    .HasConstraintName("FK_PRODUCTPROPERTY_PRODUCT");
+             
 
              
             });

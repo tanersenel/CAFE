@@ -9,7 +9,5 @@ namespace CAFE.DATA.Entity
         public int? Productid { get; set; }
         public int? Propertyid { get; set; }
 
-        public virtual Product Product { get; set; }
-        public virtual Property ProductpropertyNavigation { get; set; }
     }
 }

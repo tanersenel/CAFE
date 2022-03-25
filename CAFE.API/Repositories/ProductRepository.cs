@@ -24,7 +24,7 @@ namespace CAFE.API.Repositories
         {
             using (var db = new CAFEDBEntities())
             {
-                var product = db.Products.FirstOrDefault(x => x.Productid == id && x.Isdeleted == false);
+                var product = db.Products.Include(x => x.Productproperties).FirstOrDefault(x => x.Productid == id && x.Isdeleted == false);
                 if(product !=null)
                 {
                     db.Products.Remove(product);
@@ -40,7 +40,7 @@ namespace CAFE.API.Repositories
         {
             using (var db = new CAFEDBEntities())
             {
-                var products = await db.Products.Where(x=> x.Isdeleted == false).ToListAsync();
+                var products = await db.Products.Where(x=> x.Isdeleted == false).Include(x=>x.Productproperties).ToListAsync();
                
                 return products;
 
@@ -54,7 +54,7 @@ namespace CAFE.API.Repositories
                 var categoryIds = db.Categories.Where(x => x.Parentcategoryid == id && x.Isdeleted == false).Select(x => x.Categoryid).ToList();
                 categoryIds.Add(id);
 
-                var products = await db.Products.Where(x=>categoryIds.Contains(x.Categoryid.Value)).ToListAsync();
+                var products = await db.Products.Where(x=>categoryIds.Contains(x.Categoryid.Value)).Include(x => x.Productproperties).ToListAsync();
 
                 return products;
 
@@ -65,7 +65,7 @@ namespace CAFE.API.Repositories
         {
             using (var db = new CAFEDBEntities())
             {
-                var product = await db.Products.FirstOrDefaultAsync(x => x.Productid == id && x.Isdeleted == false);
+                var product = await db.Products.Include(x => x.Productproperties).FirstOrDefaultAsync(x => x.Productid == id && x.Isdeleted == false);
                 
                 return product;
 
@@ -76,7 +76,7 @@ namespace CAFE.API.Repositories
         {
             using (var db = new CAFEDBEntities())
             {
-                var product = await db.Products.Where(x => x.Productname.Contains(key) && x.Isdeleted == false).ToListAsync();
+                var product = await db.Products.Where(x => x.Productname.Contains(key) && x.Isdeleted == false).Include(x => x.Productproperties).ToListAsync();
 
                 return product;
 

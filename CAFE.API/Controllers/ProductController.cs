@@ -11,47 +11,56 @@ namespace CAFE.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IPropertyRepository _propertyRepository;
+        private readonly IProductRepository _productRepository;
 
-        public ProductController(IPropertyRepository propertyRepository)
+        public ProductController(IProductRepository productRepository)
         {
-            _propertyRepository = propertyRepository;
+            _productRepository = productRepository;
         }
-       
-        [HttpGet("GetProperties")]
-        public List<Property> GetProperties()
+
+
+        // GET: api/<ProductController>
+        [HttpGet("GetProductById/{id}")]
+        public Product GetProductById(int id)
         {
-            var property = _propertyRepository.GetProperties();
-            return property.Result;
+            return _productRepository.GetProductById(id).Result;
         }
-        
-        [HttpGet("GetPropertyById/{id}")]
-        public Property GetPropertyById(int id)
+        [HttpGet("GetProductByCategoryId/{id}")]
+        public List<Product> GetProductByCategoryId(int id)
         {
-           var property =  _propertyRepository.GetPropertyById(id);
-            return property.Result;
+            return _productRepository.GetProductByCategoryId(id).Result;
         }
-        [HttpGet("GetPropertiesByKey/{key}")]
-        public List<Property> GetPropertiesByKey(string key)
+        [HttpGet("GetProductsByKey/{key}")]
+        public List<Product> GetProductsByKey(string key)
         {
-            var property = _propertyRepository.GetPropertiesByKey(key);
-            return property.Result;
+            return _productRepository.GetProductsByKey(key).Result;
+        }
+        // GET api/<ProductController>/5
+        [HttpGet("GetAllProducts")]
+        public List<Product> GetAllProducts()
+        {
+            return _productRepository.GetAllProducts().Result;
         }
 
         // POST api/<ProductController>
-        [HttpPost("AddProperty")]
-        public Property AddProperty([FromBody] Property property)
+        [HttpPost("Add")]
+        public Product Add([FromBody] Product product)
         {
-            var prop = _propertyRepository.AddProperty(property);
-            return prop.Result;
-        }
-        [HttpDelete("DeleteProperty/{id}")]
-        public bool DeleteProperty(int id)
-        {
-            var property = _propertyRepository.Delete(id);
-            return property.Result;
+            return _productRepository.AddProduct(product).Result;
         }
 
+        // PUT api/<ProductController>/5
+        [HttpPut("Update")]
+        public Product Put([FromBody] Product product)
+        {
+            return _productRepository.UpdateProduct(product).Result;
+        }
 
+        // DELETE api/<ProductController>/5
+        [HttpDelete("{id}")]
+        public bool Delete(int id)
+        {
+            return _productRepository.Delete(id).Result;
+        }
     }
 }

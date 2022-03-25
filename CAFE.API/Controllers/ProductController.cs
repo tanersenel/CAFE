@@ -24,7 +24,7 @@ namespace CAFE.API.Controllers
             var property = _propertyRepository.GetProperties();
             return property.Result;
         }
-        // GET api/<ProductController>/property/5
+        
         [HttpGet("GetPropertyById/{id}")]
         public Property GetPropertyById(int id)
         {
@@ -45,7 +45,13 @@ namespace CAFE.API.Controllers
             var prop = _propertyRepository.AddProperty(property);
             return prop.Result;
         }
+        [HttpDelete("DeleteProperty/{id}")]
+        public bool DeleteProperty(int id)
+        {
+            var property = _propertyRepository.Delete(id);
+            return property.Result;
+        }
 
-       
+
     }
 }

@@ -46,9 +46,19 @@ namespace CAFE.API.Repositories
             }
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new System.NotImplementedException();
+            using (var db = new CAFEDBEntities())
+            {
+                var prop = db.Properties.FirstOrDefault(x => x.Propertyid == id);
+                if (prop != null)
+                {
+                    db.Properties.Remove(prop);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
         }
     }
 }

@@ -39,6 +39,7 @@ namespace CAFE.API
             services.AddDbContext<CAFEDBEntities>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IPropertyRepository, PropertyRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         }
 
